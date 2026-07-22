@@ -12,3 +12,5 @@ Configurația mea personală de Emacs.
 ```bash
 git clone https://github.com/Ianiksdf/Emacs-Dotfiles.git ~/.config/emacs
   * [ ] 
+
+Test
