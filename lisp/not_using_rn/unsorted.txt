@@ -1,0 +1,47 @@
+;; ─────────────────── Emacs Functions  ─────────────────────────
+;; AI generated code I don't understand properly how it works and I can't write it by myself :((((
+(defun my-org-quick-select ()
+"Acces saved directorys from dir-manager.org"
+  (interactive)
+  (let* ((org-file "~/.config/emacs/lisp/dir-manager.org")
+         (org-content '())
+         (org-sorted-result '())
+         (categorie-curenta nil))
+
+   (with-temp-buffer
+      (insert-file-contents org-file)
+      (goto-char (point-min))
+      (while (not (eobp))
+        (push (string-trim-right (thing-at-point 'line t)) org-content)
+        (forward-line 1)))
+    (setq org-content (nreverse org-content))
+
+
+    (dolist (linia org-content)
+      (cond
+       ((string-match (rx bol "* " (group (+ anything))) linia)
+        (setq categorie-curenta (match-string 1 linia)))
+
+       ((string-match (rx bol "** " (* any) "[[file:" (group (+ (not "]"))) "][" (group (+ (not "]"))) "]]") line)
+        (push(list categorie-curenta (match-string 2 linia) (match-string 1 linia)) org-sorted-result))))
+    (setq org-sorted-result (nreverse org-sorted-result))
+
+
+    (let ((header (delete-dups (mapcar #'car org-sorted-result)))
+          (exit nil))
+      (while (not exit)
+
+        (let* ((cat (completing-read "Categorie: " (append '("..") header) nil t)))
+          (if (equal cat "..")
+              (setq exit t)
+
+            (let* ((optiuni (mapcar (lambda (x) (list (nth 1 x) (nth 2 x)))
+                     (seq-filter (lambda (x) (equal (car x) cat))
+                      org-sorted-result)))
+                   (folder (completing-read (format "%s -> " cat) (append '("..") (mapcar #'car optiuni))
+                     nil t)))
+
+              (cond
+               ((equal folder "..") nil)
+               (t (dired (expand-file-name (cadr (assoc folder optiuni))))
+                (setq exit t))))))))))
