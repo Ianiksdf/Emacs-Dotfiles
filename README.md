@@ -2,7 +2,7 @@
 This is my personal Emacs Dotfiles. I use 
 `straight.el` and `use-package`
 
-[Preview of my dotfiles](images/preview.png)
+![Preview of my dotfiles](images/preview.png)
 
 ## Content
 ```
