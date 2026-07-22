@@ -13,4 +13,3 @@ Configurația mea personală de Emacs.
 git clone https://github.com/Ianiksdf/Emacs-Dotfiles.git ~/.config/emacs
   * [ ] 
 
-Test
