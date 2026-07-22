@@ -10,6 +10,12 @@ before installing dotfiles, do a bakcup
 git clone https://github.com/Ianiksdf/Emacs-Dotfiles.git ~/.config/emacs
 ````
 
+## Requirments
+- Any OS (Linux, MacOS, Windows)
+- Internet connection
+- Emacs 29+
+- Nerd Fonts (For icons)
+
 ## Config structure 
 ```text
 ├── early-init.el
